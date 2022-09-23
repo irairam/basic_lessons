@@ -12,7 +12,11 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+from collections import Counter
+flattened_values = [list_dict['first_name'] for list_dict in students]
+counter = Counter(flattened_values)
+for key, value in counter.items():
+    print(key, value)
 
 
 # Задание 2
@@ -26,7 +30,11 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
+from collections import Counter
+flattened_values = [list_dict['first_name'] for list_dict in students]
+counter = Counter(flattened_values)
+max_often_name = max(counter, key=counter.get)
+print(f'Самое популярное имя: {max_often_name}')
 
 
 # Задание 3
@@ -51,7 +59,11 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
+for school_class in school_students:
+    flattened_values = [list_dict['first_name'] for list_dict in school_class]
+    counter = Counter(flattened_values)
+    max_often_name = max(counter, key=counter.get)
+    print('Самое частое имя в классе {} : {}'.format(str(school_students.index(school_class) + 1 ), max_often_name))
 
 
 # Задание 4
