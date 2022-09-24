@@ -75,7 +75,7 @@ for school_class in school_students:
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
-    {'class': '2б', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
+    {'class': '2с', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
 ]
 is_male = {
     'Олег': True,
@@ -84,7 +84,19 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+from collections import Counter
+
+def check_name_gender(name):
+    gender = 'male' if is_male[name] == True else 'female'
+    return gender
+
+def count_genders(school):
+    for school_class in school:
+        flattened_values = [check_name_gender(list_dict['first_name']) for list_dict in school_class['students']]
+        counter = Counter(flattened_values)
+        print('В классе {}: девочек {}, мальчиков {}'.format(school_class['class'],counter['female'],counter['male']))
+
+count_genders(school)
 
 
 # Задание 5
@@ -95,13 +107,36 @@ is_male = {
 
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
-    {'class': '3c', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
+    {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
+    {'class': '2с', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
 ]
 is_male = {
+    'Олег': True,
     'Маша': False,
     'Оля': False,
-    'Олег': True,
     'Миша': True,
+    'Даша': False,
 }
-# ???
+
+from collections import Counter
+from operator import itemgetter
+
+def check_name_gender(name):
+    gender = 'male' if is_male[name] == True else 'female'
+    return gender
+
+def count_genders(school):
+    ls_dict = []
+    for school_class in school:
+        flattened_values = [check_name_gender(list_dict['first_name']) for list_dict in school_class['students']]
+        counter = Counter(flattened_values)
+        ds = {'class':school_class['class'], 'f':counter['female'], 'm':counter['male']}
+        ls_dict.append(ds)
+
+    newlist = sorted(ls_dict, key=itemgetter('f'), reverse=True)
+    print('Больше всего девочек в классе: ',newlist[0]['class'])
+    newlist = sorted(ls_dict, key=itemgetter('m'), reverse=True)
+    print('Больше всего мальчиков в классе: ',newlist[0]['class'])
+
+count_genders(school)
 
